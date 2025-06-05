@@ -6,23 +6,25 @@ import java.util.Scanner;
 public class DiceRole {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        boolean appCompleted = false;
+        do {
+            try {
+                System.out.println("How many dice would you like to roll?");
+                int numberOfDice = scanner.nextInt();
+                appCompleted = true;
 
-        try {
-            System.out.println("How many dice would you like to roll?");
-            int numberOfDice = scanner.nextInt();
+                System.out.println("About to roll " + numberOfDice + " dice");
 
-            System.out.println("About to roll " + numberOfDice + " dice");
-            scanner.close();
-
-            Random rand = new Random();
-            for (int i = 0; i < numberOfDice; i++) {
-                int rolledNumber = rand.nextInt(6) + 1;
-                System.out.println(display(rolledNumber));
-            }
-        } catch (Exception e) {
-            System.out.println("That is not a valid number!");
-        }
-        
+                Random rand = new Random();
+                for (int i = 0; i < numberOfDice; i++) {
+                    int rolledNumber = rand.nextInt(6) + 1;
+                    System.out.println(display(rolledNumber));
+                }
+            } catch (Exception e) {
+                System.out.println("That is not a valid number!");
+                scanner.next();
+            } 
+        }while(!appCompleted);
     }
 
     static String display(int value){
