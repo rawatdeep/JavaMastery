@@ -20,15 +20,40 @@ public class WordGuessingGame {
     }
 
     public void play(){
-        System.out.println("The word is: " + wordToGuess);
         Scanner scanner = new Scanner(System.in);
-        
-        while(attempts > 0){
+        boolean userHasWon = false;
+        System.out.println("The word is: " + wordToGuess);
+        while(attempts > 0 && !userHasWon){
             System.out.println("You have " + attempts + " attempts left...");
             System.out.print("Guess a letter: ");
+            char guess = scanner.nextLine().toLowerCase().charAt(0);
+            if(processGuess(guess)){
+                System.out.println("Correct!");
+                if(new String(guessedLetters).equals(wordToGuess)){
+                    System.out.println("You have guessed the word! You win!");
+                    userHasWon = true;
+                }
+            } else{
+                System.out.println("This guess was incorrect");
+                attempts--;
+            }
+        }
 
-            attempts--;
+        if(!userHasWon){
+            System.out.println("You are out of guesses! You lose!");
         }
     }
+
+    private boolean processGuess(char letter){
+        boolean letterFound = false;
+        for (int i = 0; i < wordToGuess.length(); i++) {
+            if(wordToGuess.charAt(i) == letter){
+                guessedLetters[i] = letter;
+                letterFound = true;
+            }
+        }
+        return letterFound;
+    }
+
 
 }
