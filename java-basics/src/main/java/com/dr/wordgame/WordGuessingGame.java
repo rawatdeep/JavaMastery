@@ -22,15 +22,17 @@ public class WordGuessingGame {
     public void play(){
         Scanner scanner = new Scanner(System.in);
         boolean userHasWon = false;
-        System.out.println("The word is: " + wordToGuess);
+        
         while(attempts > 0 && !userHasWon){
+            displayState();
+
             System.out.println("You have " + attempts + " attempts left...");
             System.out.print("Guess a letter: ");
             char guess = scanner.nextLine().toLowerCase().charAt(0);
             if(processGuess(guess)){
                 System.out.println("Correct!");
                 if(new String(guessedLetters).equals(wordToGuess)){
-                    System.out.println("You have guessed the word! You win!");
+                    System.out.println("You have guessed the word: " + wordToGuess + ". You win!");
                     userHasWon = true;
                 }
             } else{
@@ -55,5 +57,7 @@ public class WordGuessingGame {
         return letterFound;
     }
 
-
+    private void displayState(){
+        System.out.println("Guessed Letters: " + new String(guessedLetters));
+    }
 }
